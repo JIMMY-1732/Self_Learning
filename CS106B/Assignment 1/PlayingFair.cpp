@@ -1,7 +1,4 @@
-/* File: PlayingFair.cpp
- *
- * TODO: Edit these comments to describe anything interesting or noteworthy in your implementation.
- */
+//Github: JIMMY-1732, 12,Feb,25
 #include "PlayingFair.h"
 #include "GUI/SimpleTest.h"
 #include "error.h"
