@@ -38,7 +38,7 @@ string onlyConnectize(string phrase) {
 /* * * * * * Provided Test Cases * * * * * */
 
 PROVIDED_TEST("Converts lower-case to upper-case.") {
-    EXPECT_EQUAL(onlyConnectize("elena s"), "LNS");
+    EXPECT_EQUAL(onlyConnectize("lowercase"), "LWRCS");
     EXPECT_EQUAL(onlyConnectize("uppercase"), "PPRCS");
 }
 
