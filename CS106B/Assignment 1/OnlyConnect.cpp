@@ -1,9 +1,4 @@
-/* File: OnlyConnect.cpp
- *
- * TODO: Edit these comments to describe anything interesting or noteworthy in your implementation.
- *
- * TODO: Edit these comments to leave a puzzle for your section leader to solve!
- */
+//Github: JIMMY-1732, 12,Feb,25
 #include "OnlyConnect.h"
 #include "GUI/SimpleTest.h"
 #include "strlib.h"
