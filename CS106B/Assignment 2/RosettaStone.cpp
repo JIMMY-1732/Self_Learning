@@ -1,7 +1,9 @@
 #include "RosettaStone.h"
 #include "GUI/SimpleTest.h"
 #include <string>
+#include <cmath>
 #include "map.h"
+#include "priorityqueue.h"
 using namespace std;
 
 Map<string, double> kGramsIn(const string& str, int kGramLength) {
@@ -11,18 +13,17 @@ Map<string, double> kGramsIn(const string& str, int kGramLength) {
 
     string word = "";
     Map<string, double> Kgram;
-    int cnt = 1;
 
     if(kGramLength <= 0)
         error("Invaild Input");
     for(int i = 0 ;char letter : str){
         if(str.length() - i >= kGramLength){
             word += str.substr(i,kGramLength);
-            i++;
             if(Kgram.containsKey(word))
                 Kgram[word]++;
             else
                 Kgram.put(word,1);
+            i++;
         }
         word = "";
 
@@ -34,26 +35,63 @@ Map<string, double> normalize(const Map<string, double>& input) {
     /* TODO: Delete this comment and the other lines here, then implement
      * this function.
      */
-    (void) input;
-    return {};
+
+    if(input.isEmpty())
+        error("Invaild Input");
+
+    for(string key : input)
+        if(input[key] == 0)
+            error("Invaild Input");
+
+    double weighting = 0;
+    Map<string, double> normalized;
+    for(string key : input)
+        weighting += (input[key]*input[key]);
+    for(string key : input)
+        normalized[key] = input[key] / sqrt(weighting);
+
+    return {normalized};
 }
 
 Map<string, double> topKGramsIn(const Map<string, double>& source, int numToKeep) {
     /* TODO: Delete this comment and the other lines here, then implement
      * this function.
      */
-    (void) source;
-    (void) numToKeep;
-    return {};
+    //int cnt = numToKeep;
+    PriorityQueue<string> Pqueue;
+    Map<string,double> topG;
+    if(numToKeep < 0)
+        error("Invaild Input");
+
+    if(numToKeep == 0)
+        return {};
+
+    if(source.size() - numToKeep < 0)
+        numToKeep = source.size();
+
+    for(string key:source)
+        Pqueue.enqueue(key,source[key]);
+
+    for(int i = 0;i < source.size() - numToKeep; i++)
+        Pqueue.dequeue();
+
+    for(int i = 0;i < numToKeep; i++){
+        string key = Pqueue.dequeue();
+        topG.put(key,source[key]);
+    }
+    return {topG};
 }
 
 double cosineSimilarityOf(const Map<string, double>& lhs, const Map<string, double>& rhs) {
     /* TODO: Delete this comment and the other lines here, then implement
      * this function.
      */
-    (void) lhs;
-    (void) rhs;
-    return {};
+    double sum = 0;
+    for(string key:lhs)
+        if(rhs.containsKey(key))
+            sum += lhs[key] * rhs[key];
+
+    return {sum};
 }
 
 string guessLanguageOf(const Map<string, double>& textProfile,
@@ -63,7 +101,21 @@ string guessLanguageOf(const Map<string, double>& textProfile,
      */
     (void) textProfile;
     (void) corpora;
-    return "";
+
+    double max = 0;
+    string name;
+
+    if(corpora.size() == 0)
+        error("Invild Input");
+
+    for(Corpus Corpus_set : corpora)
+        for(string key : Corpus_set.profile)
+            if(textProfile.containsKey(key) && Corpus_set.profile[key] > max){
+                max = Corpus_set.profile[key];
+                name = Corpus_set.name;
+            }
+
+    return name;
 }
 
 
