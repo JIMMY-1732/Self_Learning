@@ -1,4 +1,4 @@
-//Github:JIMMY_1732 15,Feb,25
+//Github:JIMMY_1732, 15,Feb,25
 //test passed, takes too long on running demo 
 #include "RisingTides.h"
 #include "GUI/SimpleTest.h"
