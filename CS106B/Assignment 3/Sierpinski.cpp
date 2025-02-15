@@ -1,4 +1,4 @@
-//Github:JIMMY_1732 15,Feb,25
+//Github:JIMMY_1732, 15,Feb,25
 #include "Sierpinski.h"
 #include "error.h"
 using namespace std;
