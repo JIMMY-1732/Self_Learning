@@ -1,4 +1,4 @@
-//Github: Jimmy_1732, 20,Feb,25
+//Github: JIMMY_1732, 20,Feb,25
 #include "WhatAreYouDoing.h"
 #include "strlib.h"
 
